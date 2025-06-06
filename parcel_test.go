@@ -63,10 +63,8 @@ func TestAddGetDelete(t *testing.T) {
 	// проверьте, что значения всех полей в полученном объекте совпадают со значениями полей в переменной parcel
 	res, err := store.Get(number)
 	assert.NoError(t, err)
-	assert.Equal(t, res.Client, parcel.Client)
-	assert.Equal(t, res.Status, parcel.Status)
-	assert.Equal(t, res.Address, parcel.Address)
-	assert.Equal(t, res.CreatedAt, parcel.CreatedAt)
+	parcel.Number = number
+	assert.Equal(t, res, parcel)
 
 	// delete
 	// удалите добавленную посылку, убедитесь в отсутствии ошибки
@@ -202,10 +200,6 @@ func TestGetByClient(t *testing.T) {
 		parcel2, ok := parcelMap[parcel.Number]
 		assert.True(t, ok)
 
-		assert.Equal(t, parcel2.Address, parcel.Address)
-		assert.Equal(t, parcel2.Client, parcel.Client)
-		assert.Equal(t, parcel2.CreatedAt, parcel.CreatedAt)
-		assert.Equal(t, parcel2.Number, parcel.Number)
-		assert.Equal(t, parcel2.Status, parcel.Status)
+		assert.Equal(t, parcel2, parcel)
 	}
 }
